@@ -3,7 +3,7 @@
 buildscript {
     ext {
         buildToolsVersion = "30.0.2"
-        minSdkVersion = 27
+        minSdkVersion = 21
         compileSdkVersion = 30
         targetSdkVersion = 30
         ndkVersion = "20.1.5948944"
@@ -14,7 +14,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.2.1")
-            // NOTE: Do not place your application dependencies here; they belong
+        // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
