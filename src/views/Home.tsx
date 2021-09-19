@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import styled, { css } from "@emotion/native";
-import { FC } from "react";
-import Layout from "../components/Layout";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "./RootStackPrams";
-import Fetch from "../hooks/fetch";
+import React, {useEffect, useState} from 'react';
+import styled, {css} from '@emotion/native';
+import {FC} from 'react';
+import Layout from '../components/Layout';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from './RootStackPrams';
+import Fetch from '../hooks/fetch';
 import ProductComponent, {
   ProductComponentSkeleton,
-} from "../components/Product";
-import { Text } from "react-native";
+} from '../components/Product';
 
 const Title = styled.Text`
   color: #000000;
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-size: 40px;
   margin-top: 20px;
   margin-left: 20px;
@@ -30,9 +29,9 @@ type ButtonProps = {
   selected: boolean;
 };
 
-const ButtonCategory = styled.TouchableOpacity<ButtonProps>`
+const ButtonCategory = styled.TouchableOpacity`
   border: 1px solid #000000;
-  ${({ selected }) =>
+  ${({selected}: ButtonProps) =>
     selected &&
     css`
       background-color: #000000;
@@ -43,11 +42,11 @@ const ButtonCategory = styled.TouchableOpacity<ButtonProps>`
   align-items: flex-start;
   justify-content: center;
 `;
-const ButtonCategoryText = styled.Text<ButtonProps>`
+const ButtonCategoryText = styled.Text`
   width: 100%;
   font-weight: normal;
   font-size: 12px;
-  color: ${({ selected }) => (selected ? "#ffffff" : "#000000")};
+  color: ${({selected}: ButtonProps) => (selected ? '#ffffff' : '#000000')};
   margin: 10px 25px 10px 25px;
   display: flex;
   flex-direction: row;
@@ -68,11 +67,11 @@ interface Produc {
   };
 }
 
-const App: FC<Props> = (props) => {
+const App: FC<Props> = props => {
   const navigation = useNavigation<authScreenProp>();
   const [Categories, setCategories] = useState([]);
-  const [CategoriesSelected, setCategoriesSelected] = useState("");
-  const { data, loading, errors } = Fetch("https://fakestoreapi.com/products");
+  const [CategoriesSelected, setCategoriesSelected] = useState('');
+  const {data, loading, errors} = Fetch('https://fakestoreapi.com/products');
 
   useEffect(() => {
     setCategories(
@@ -81,8 +80,8 @@ const App: FC<Props> = (props) => {
           acc.find((item: any) => item === cur.category)
             ? acc
             : [...acc, cur.category],
-        []
-      )
+        [],
+      ),
     );
   }, [data]);
 
@@ -95,9 +94,8 @@ const App: FC<Props> = (props) => {
             selected={CategoriesSelected === item}
             key={`Categories${item}`}
             onPress={() =>
-              setCategoriesSelected(CategoriesSelected === item ? "" : item)
-            }
-          >
+              setCategoriesSelected(CategoriesSelected === item ? '' : item)
+            }>
             <ButtonCategoryText selected={CategoriesSelected === item}>
               {item.toUpperCase()}
             </ButtonCategoryText>
@@ -106,16 +104,16 @@ const App: FC<Props> = (props) => {
       </Carrusell>
       <Carrusell horizontal showsHorizontalScrollIndicator={false}>
         {loading
-          ? Array.from({ length: 10 }).map((_, index) => (
+          ? Array.from({length: 10}).map((_, index) => (
               <ProductComponentSkeleton
                 key={`SkeletonProductItem${index + 1}`}
               />
             ))
           : data
               ?.filter((item: Produc) =>
-                CategoriesSelected === ""
+                CategoriesSelected === ''
                   ? true
-                  : item.category === CategoriesSelected
+                  : item.category === CategoriesSelected,
               )
               .map((item: Produc) => (
                 <ProductComponent key={`ProductItem${item.id}`} {...item} />
@@ -124,7 +122,9 @@ const App: FC<Props> = (props) => {
 
       {Categories?.map((itemCategory: any, index: number) => (
         <React.Fragment key={`CategoriesKey${index + 1}`}>
-          <Title>{itemCategory.charAt(0).toUpperCase() + itemCategory.slice(1)}</Title>
+          <Title>
+            {itemCategory.charAt(0).toUpperCase() + itemCategory.slice(1)}
+          </Title>
           <Carrusell horizontal showsHorizontalScrollIndicator={false}>
             {data
               ?.filter((Filter: Produc) => Filter.category === itemCategory)

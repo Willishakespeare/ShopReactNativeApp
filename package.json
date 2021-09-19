@@ -28,6 +28,7 @@
     "@emotion/native": "^11.0.0",
     "@emotion/react": "^11.4.1",
     "@types/react": "^17.0.21",
+    "@types/react-native": "^0.65.0",
     "metro-react-native-babel-preset": "^0.66.0",
     "react-native-codegen": "^0.0.7",
     "typescript": "^3.8.3"

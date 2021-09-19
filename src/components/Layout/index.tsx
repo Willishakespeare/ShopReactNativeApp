@@ -11,7 +11,7 @@ const Layout: FC<Props> = ({ children }) => (
       translucent={true}
       backgroundColor="transparent"
       hidden={false}
-      barStyle="dark-content"
+      barStyle="light-content"
     />
     <ContainerLayoutContainer>{children}</ContainerLayoutContainer>
   </ContainerLayout>
