@@ -12,8 +12,7 @@ import ImmersiveMode from 'react-native-immersive-mode';
 import Home from './views/Home';
 import Search from './views/Search';
 import Favorites from './views/Favorites';
-import NavigationBar from './components/NavigationBar';
-import Bar, {SideBar} from './components/Bar';
+import User from './views/User';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +24,6 @@ interface IContextProps {
 export const FavoritesContext = createContext({} as IContextProps);
 
 const App = () => {
-  const [sideBar, setSideBar] = useState(false);
   const [favorites, setFavorites] = useState<number[]>([]);
   useEffect(() => {
     const getData = async () => {
@@ -40,7 +38,6 @@ const App = () => {
   return (
     <FavoritesContext.Provider value={{favorites, setFavorites}}>
       <NavigationContainer>
-        <Bar state={[sideBar, setSideBar]} />
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
@@ -52,9 +49,8 @@ const App = () => {
           />
           <Stack.Screen name="Search" component={Search} />
           <Stack.Screen name="Favorites" component={Favorites} />
+          <Stack.Screen name="User" component={User} />
         </Stack.Navigator>
-        <NavigationBar />
-        {sideBar && <SideBar state={[sideBar, setSideBar]} />}
       </NavigationContainer>
     </FavoritesContext.Provider>
   );

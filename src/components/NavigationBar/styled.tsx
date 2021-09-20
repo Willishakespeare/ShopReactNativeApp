@@ -1,4 +1,4 @@
-import styled from "@emotion/native";
+import styled from '@emotion/native';
 
 export const NavigationBarContainer = styled.View`
   display: flex;
@@ -17,8 +17,9 @@ export const NavigationBarContainer = styled.View`
 
 export const NavigationIcon = styled.TouchableHighlight`
   display: flex;
-  width: 25px;
-  height: 25px;
+  width: 50px;
+  height: 50px;
+  padding: 15px 15px;
   justify-content: center;
   align-items: center;
 `;

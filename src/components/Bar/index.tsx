@@ -5,8 +5,10 @@ import {
   NavigationImage,
   NavigationSearchBar,
   SideBarContainer,
+  SideBarContainerOption,
+  SideBarContainerText,
 } from './styled';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../views/RootStackPrams';
 import {Text} from 'react-native';
@@ -43,16 +45,34 @@ const Bar: FC<Props> = ({state}) => {
 
 export default Bar;
 
-export const SideBar: FC<Props> = ({state}) => {
-  const [sideBar, setSideBar] = state;
+const SideBarOptions = [
+  {title: `Inicio`, value: `Home`},
+  {title: `Buscar`, value: `Search`},
+  {title: `Categorias`, value: `Category`},
+  {title: `Notificaciones`, value: `Notify`},
+  {title: `Mis Compras`, value: `MyShop`},
+  {
+    title: `Favoritos`,
+    value: `Favorites`,
+  },
+];
+
+export const SideBar: FC<Props> = ({}) => {
+  const navigation = useNavigation<any>();
+  const route = useRoute();
   return (
     <SideBarContainer>
-      {Array.from({length: 10}, (v, i) => (
-        <Text>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s,
-        </Text>
+      {SideBarOptions.map((item, i) => (
+        <SideBarContainerOption
+          onPress={() => {
+            navigation.navigate(item.value);
+          }}
+          selected={route.name === item.value}
+          key={`ContentSideBarOptions${i + 1}`}>
+          <SideBarContainerText selected={route.name === item.value}>
+            {item.title}
+          </SideBarContainerText>
+        </SideBarContainerOption>
       ))}
     </SideBarContainer>
   );
